@@ -1,11 +1,13 @@
 const http = require("http");
 
 const servidor = http.createServer((req, res) => {
-  res.write("Hola desde el servidor 🔥\n");
+  res.setHeader("Access-Control-Allow-Origin", "*");
   if (req.url === "/") {
     res.write("Inicio");
   } else if (req.url === "/usuarios") {
-    res.write("Lista de usuarios 👀");
+    const usuarios = ["Juan", "María", "Pedro"];
+    res.setHeader("Content-Type", "application/json");
+    res.write(JSON.stringify(usuarios));
   } else {
     res.write("No encontrado");
   }
