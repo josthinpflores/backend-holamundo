@@ -1,7 +1,7 @@
 const http = require("http");
 
 const servidor = http.createServer((req, res) => {
-  res.write("Hola desde el servidor 🔥");
+  res.write("Hola desde el servidor 🔥\n");
   if (req.url === "/") {
     res.write("Inicio");
   } else if (req.url === "/usuarios") {
