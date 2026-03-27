@@ -1,16 +1,35 @@
 const http = require("http");
+let usuarios = ["Juan", "María", "Pedro"]; // 👈 memoria temporal
 
 const servidor = http.createServer((req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
-  if (req.url === "/") {
-    res.write("Inicio");
-  } else if (req.url === "/usuarios") {
-    const usuarios = ["Juan", "María", "Pedro"];
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  // 👉 cuando piden la lista
+  if (req.method === "GET" && req.url === "/usuarios") {
     res.setHeader("Content-Type", "application/json");
     res.write(JSON.stringify(usuarios));
-  } else {
-    res.write("No encontrado");
+    return res.end();
   }
+  // 👉 cuando envían un nuevo usuario
+  if (req.method === "POST" && req.url === "/usuarios") {
+    let body = "";
+
+    req.on("data", chunk => {
+      body += chunk;
+    });
+
+    req.on("end", () => {
+      const nuevoUsuario = JSON.parse(body);
+
+      usuarios.push(nuevoUsuario.nombre);
+
+      res.write("Usuario agregado 🔥");
+      res.end();
+    });
+	return;
+  }
+  res.write("Ruta no encontrada");
   res.end();
 });
 
