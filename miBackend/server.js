@@ -2,6 +2,13 @@ const http = require("http");
 
 const servidor = http.createServer((req, res) => {
   res.write("Hola desde el servidor 🔥");
+  if (req.url === "/") {
+    res.write("Inicio");
+  } else if (req.url === "/usuarios") {
+    res.write("Lista de usuarios 👀");
+  } else {
+    res.write("No encontrado");
+  }
   res.end();
 });
 
