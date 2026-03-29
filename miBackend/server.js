@@ -17,7 +17,7 @@ const servidor = http.createServer((req, res) => {
   res.setHeader("Access-Control-Allow-Methods", "GET, POST");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
   // 👉 cuando piden la lista GET usuario
-  if (req.method === "GET" && req.url === "/usuarios") {
+  if (req.method === "GET" && req.url === "/") {
     db.collection("usuarios").find().toArray()
 	.then(data => {
 		res.setHeader("Content-Type", "application/json");
@@ -27,7 +27,7 @@ const servidor = http.createServer((req, res) => {
 	return;
   }
   // 👉 cuando envían un nuevo usuario POST usuario
-  if (req.method === "POST" && req.url === "/usuarios") {
+  if (req.method === "POST" && req.url === "/") {
     let body = "";
 
     req.on("data", chunk => {
