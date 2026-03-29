@@ -51,6 +51,8 @@ const servidor = http.createServer((req, res) => {
   res.end();
 });
 
-servidor.listen(3000, "0.0.0.0", () => {
+const PORT = process.env.PORT || 3000;
+
+servidor.listen(PORT, "0.0.0.0", () => {
   console.log("Servidor corriendo en http://192.168.x.x:3000/usuarios");
 });
