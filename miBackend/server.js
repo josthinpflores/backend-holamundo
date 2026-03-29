@@ -1,6 +1,6 @@
 const http = require("http");
 const { MongoClient } = require("mongodb");
-const uri = "mongodb://josthinpflores:yo97tengo32un16@ac-tw0e38c-shard-00-00.wtbg2ng.mongodb.net:27017,ac-tw0e38c-shard-00-01.wtbg2ng.mongodb.net:27017,ac-tw0e38c-shard-00-02.wtbg2ng.mongodb.net:27017/?ssl=true&replicaSet=atlas-7sjx4k-shard-0&authSource=admin&appName=Cluster0";
+const uri = process.env.MONGO_URI;
 const client = new MongoClient(uri);
 let db; // 👈 memoria temporal
 
