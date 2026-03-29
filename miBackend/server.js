@@ -14,9 +14,22 @@ conectarDB();
 
 const servidor = http.createServer((req, res) => {
   console.log("URL recibida:", req.url);
+  
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "GET, POST");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  
+  //Ignorar favicon primero
+  if (req.url === "/favicon.ico") {
+  res.end();
+  return;
+  }
+  // 🟢 Ruta raíz
+  if (req.method === "GET" && req.url === "/") {
+    res.write("API funcionando 🔥");
+    res.end();
+    return;
+  }
   // 👉 cuando piden la lista GET usuario
   if (req.method === "GET" && req.url.startsWith("/usuarios")) {
     db.collection("usuarios").find().toArray()
@@ -27,6 +40,7 @@ const servidor = http.createServer((req, res) => {
 	});
 	return;
   }
+  
   // 👉 cuando envían un nuevo usuario POST usuario
   if (req.method === "POST" && req.url.startsWith("/usuarios")) {
     let body = "";
@@ -47,10 +61,6 @@ const servidor = http.createServer((req, res) => {
     });
 	return;
   }
-  if (req.url === "/favicon.ico") {
-  res.end();
-  return;
-}
   
   res.write("Ruta no encontrada");
   res.end();
