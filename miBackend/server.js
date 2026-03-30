@@ -62,6 +62,22 @@ const servidor = http.createServer((req, res) => {
 	return;
   }
   
+  //Deletear usuarios
+  if (req.method === "DELETE" && req.url.startsWith("/usuarios/")) {
+
+  const id = req.url.split("/")[2]; // 👈 sacamos el ID
+
+  const { ObjectId } = require("mongodb");
+
+  db.collection("usuarios").deleteOne({ _id: new ObjectId(id) })
+    .then(() => {
+      res.write("Usuario eliminado 🔥");
+      res.end();
+    });
+
+  return;
+  }
+  
   res.write("Ruta no encontrada");
   res.end();
 });
