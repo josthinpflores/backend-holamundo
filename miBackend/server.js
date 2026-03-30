@@ -10,8 +10,6 @@ async function conectarDB() {
   console.log("Conectado a MongoDB 🔥");
 }
 
-conectarDB();
-
 const servidor = http.createServer((req, res) => {
   console.log("URL recibida:", req.url);
   
@@ -71,7 +69,7 @@ const servidor = http.createServer((req, res) => {
   //Deletear usuarios
   if (req.method === "DELETE" && req.url.startsWith("/usuarios/")) {
 
-  const id = req.url.split("/")[2]; // 👈 sacamos el ID
+  const id = req.url.split("/")[2].trim();
 
   const { ObjectId } = require("mongodb");
 
@@ -90,6 +88,8 @@ const servidor = http.createServer((req, res) => {
 
 const PORT = process.env.PORT || 3000;
 
-servidor.listen(PORT, "0.0.0.0", () => {
-  console.log("Servidor corriendo en http://192.168.x.x:3000/usuarios");
+conectarDB().then(() => {
+  servidor.listen(PORT, "0.0.0.0", () => {
+    console.log("Servidor corriendo 🔥");
+  });
 });
