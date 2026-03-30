@@ -70,6 +70,7 @@ const servidor = http.createServer((req, res) => {
   if (req.method === "DELETE" && req.url.startsWith("/usuarios/")) {
 
   const id = req.url.split("/")[2].trim();
+  console.log("ID recibido", id);
 
   const { ObjectId } = require("mongodb");
 
