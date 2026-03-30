@@ -17,11 +17,6 @@ const servidor = http.createServer((req, res) => {
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, DELETE");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
   
-  //Ignorar favicon primero
-  if (req.url === "/favicon.ico") {
-  res.end();
-  return;
-  }
   //Preguntar por OPTIONS
   if (req.method === "OPTIONS") {
   res.writeHead(204);
