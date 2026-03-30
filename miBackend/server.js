@@ -17,12 +17,6 @@ const servidor = http.createServer((req, res) => {
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, DELETE");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
   
-  //Preguntar por OPTIONS
-  if (req.method === "OPTIONS") {
-  res.writeHead(204);
-  res.end();
-  return;
-  }
   // 🟢 Ruta raíz
   if (req.method === "GET" && req.url === "/") {
     res.write("API funcionando 🔥");
